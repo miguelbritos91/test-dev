@@ -71,8 +71,12 @@ export default {
     clear () {
       this.name = ''
       this.type = null
+      this.filterAction()
     },
     onSubmit () {
+      this.filterAction()
+    },
+    filterAction () {
       const filterData = {
         name: this.name,
         type: this.type
