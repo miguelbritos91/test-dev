@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Brewary List</h1>
+    <h1>Brewery List</h1>
     <filterBrewery @filter="filterBrewery($event)" />
     <v-progress-linear
       v-if="load"
@@ -12,24 +12,37 @@
       :items="desserts"
       :items-per-page="5"
       class="elevation-1"
-    />
+    >
+      <!-- eslint-disable-next-line -->
+      <template #item.action="{ item }">
+        <v-btn color="primary" @click="viewItem(item.id)">
+          View
+        </v-btn>
+      </template>
+    </v-data-table>
+    <PopUp :show="show" :data="brewery" @closed-popup="show=$event" />
   </div>
 </template>
 
 <script>
 import FilterBrewery from '@/components/filter-brewery'
+import PopUp from '@/components/pop-up'
 export default {
   components: {
-    FilterBrewery
+    FilterBrewery,
+    PopUp
   },
   data: () => ({
     headers: [
       { text: 'ID', value: 'id' },
       { text: 'Name', align: 'start', value: 'name' },
-      { text: 'Type', value: 'type' }
+      { text: 'Type', value: 'type' },
+      { text: 'Action', value: 'action' }
     ],
     desserts: [],
-    load: true
+    load: true,
+    show: false,
+    brewery: {}
   }),
   mounted () {
     this.getBrewaries()
@@ -71,6 +84,17 @@ export default {
     },
     filterBrewery (event) {
       this.getBrewariesByFilter(event)
+    },
+    async viewItem (id) {
+      this.show = false
+      this.brewery = {}
+      const { data } = await this.$axios.get('/api/brewery/' + id, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      this.brewery = data
+      this.show = true
     }
   }
 }
