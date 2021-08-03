@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BreweryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('/brewery', [BreweryController::class, 'index']);
+Route::get('/brewery/{id}', [BreweryController::class, 'show']);
+Route::get('/brewery-filter', [BreweryController::class, 'filter']);
