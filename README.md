@@ -26,4 +26,4 @@
 
 
 #### Probar la app de forma online
-* Esta aplicación se ecuentra disponible para hacer test de forma online. Para ello acceder al sugiente link: https://nameless-brushlands-43968.herokuapp.com/
+* Esta aplicación se ecuentra disponible para hacer test de forma online. Para ello acceder al sugiente link: https://breweryapp.herokuapp.com/
